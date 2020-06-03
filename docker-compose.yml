@@ -1,29 +1,29 @@
 version: '3.6'
 
 services:
-  # api:
-  #   build: ./api
-  #   volumes:
-  #     - ./api:/app
-  #   ports:
-  #     - 5000:3000
-  #   depends_on:
-  #     - db
-  #     - redis
-  #   environment:
-  #     DATABASE_URL: postgres://postgres@db
+  api:
+    build: ./api
+    volumes:
+      - ./api:/app
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres@db
+  front:
+    build: ./front
+    volumes:
+      - ./front:/app
+    ports:
+      - 5000:5000
+    depends_on:
+      - api
   db:
     image: postgres:10.3-alpine
     volumes:
       - jobsity-postgres-volume:/var/lib/postgresql/data
     ports:
       - 5432:5432
-  redis:
-    image: redis
-    volumes:
-      - jobsity-redis-volume:/data
-    ports:
-      - 6379:6379
 volumes:
   jobsity-postgres-volume:
-  jobsity-redis-volume:
